@@ -2,7 +2,7 @@ package com.fitness.tracker;
 
 import java.time.LocalDateTime;
 
-/** @Author Carey Sunderland
+/** {@code @Author} Carey Sunderland
  *
  * This class will be used by the user to create their own custom workouts. The constructor of the
  * class gives it flexibility of being used for distance exercises (like running or walking), repetitious

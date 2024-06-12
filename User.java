@@ -1,5 +1,9 @@
 package com.fitness.tracker;
 
+/**
+ * This class is to hold the data for the user to be reutilized throughout the program without having to make changes.
+ *
+ */
 public class User {
     private String username;
     private String password;
