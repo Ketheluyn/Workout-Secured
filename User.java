@@ -9,7 +9,12 @@ public class User {
     private String gender;
     private double userBMI;
 
-    public User(String username, String password, int userAge, int heightInInches,
+    public User (String username, String password){
+        this.username = username;
+        this.password = password;
+    }
+
+    public User (String username, String password, int userAge, int heightInInches,
                 int weight, String gender) {
         this.username = username;
         this.password = password;
@@ -19,11 +24,22 @@ public class User {
         this.gender = gender;
 
         this.userBMI = calculateBMI(this.heightInInches, this.weight);
+    }
 
+    /**
+     * This method is used in the case the user does not enter all their information in a complete setup and
+     * creates just a basic account with a username and password.
+     */
+    public void setupUserprofile(int userAge, int heightInInches, int weight, String gender){
+        this.userAge = userAge;
+        this.heightInInches = heightInInches;
+        this.weight = weight;
+        this.gender = gender;
+
+        this.userBMI = calculateBMI(this.heightInInches, this.weight);
     }
 
     private double calculateBMI(int heightInInches, int weight){
-
         return (double) weight / (heightInInches * heightInInches);
     }
 
@@ -35,15 +51,52 @@ public class User {
         return password;
     }
 
-    public int getUserAge() { return userAge; }
 
-    public int getHeightInInches() { return heightInInches; }
+    public void setUsername(String username) {
+        this.username = username;
+    }
 
-    public int getWeight () { return weight; }
+    public void setPassword(String password) {
+        this.password = password;
+    }
 
-    public String getGender() { return gender; }
+    public int getUserAge() {
+        return userAge;
+    }
 
-    public double getUserBMI() { return userBMI; }
+    public void setUserAge(int userAge) {
+        this.userAge = userAge;
+    }
 
+    public int getHeightInInches() {
+        return heightInInches;
+    }
 
+    public void setHeightInInches(int heightInInches) {
+        this.heightInInches = heightInInches;
+    }
+
+    public int getWeight() {
+        return weight;
+    }
+
+    public void setWeight(int weight) {
+        this.weight = weight;
+    }
+
+    public String getGender() {
+        return gender;
+    }
+
+    public void setGender(String gender) {
+        this.gender = gender;
+    }
+
+    public double getUserBMI() {
+        return userBMI;
+    }
+
+    public void setUserBMI(double userBMI) {
+        this.userBMI = userBMI;
+    }
 }
