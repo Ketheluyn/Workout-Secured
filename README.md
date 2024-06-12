@@ -14,6 +14,7 @@ The project includes a simple user authentication system:
 - `Main.java`: Entry point of the application.
 - `User.java`: Represents a user with a username and password.
 - `AuthService.java`: Provides authentication logic.
+- `Goals.java`: Provides the ability for the user to set their goals for intakes.
 
 ## Unit Testing
 
