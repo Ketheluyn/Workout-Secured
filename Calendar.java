@@ -6,7 +6,7 @@ import java.util.Scanner;
 import java.util.regex.Pattern;
 
 
-class Calendar {
+public class Calendar {
 	private Map<String, Map<String, Integer>> fitnessCal; 
 	private Scanner calInput;
 	private static final Pattern DATE_INPUT = Pattern.compile("\\d{2}\\\\\\d{2}\\\\\\d{4}");

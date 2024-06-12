@@ -1,7 +1,5 @@
 package com.fitness.tracker;
 
-import java.util.Calendar;
-
 public class Main {
     public static void main(String[] args) {
         User user = new User("john_doe", "password123");

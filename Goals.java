@@ -1,5 +1,10 @@
 package com.fitness.tracker;
 
+/**
+ * @Author Carey Sunderland
+ * The main focus of this class is to interact with the other systems for goals and making sure the user is meeting them.
+ * This will be integrated with either the GUI or calendar to give the user notifications on their goals.
+ */
 public class Goals {
 
     private User user;
@@ -17,6 +22,17 @@ public class Goals {
                 user.getHeightInInches(), user.getUserAge(), user.getGender());
     }
 
+    /**
+     *
+     * This method uses the "Mifflin-St Jeor Equation" to approximate the user's daily caloric burn using their weight,
+     * gender, age, and height.
+     *
+     * @param userWeightInPounds Retrieved from the User profile
+     * @param userHeightInInches Retrieved from the User profile
+     * @param userAge Retrieved from the User profile
+     * @param userGender Retrieved from the User profile
+     * @return The approximate caloric maintenance of the user
+     */
     private double calculateDefaultCalorieMaintenance(int userWeightInPounds, int userHeightInInches,
                                                       int userAge, String userGender){
 
