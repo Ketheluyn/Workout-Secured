@@ -67,7 +67,7 @@ public class Calendar {
 		String dateEntry = calInput.nextLine().trim();
 		
 		if(!isFormattedDate(dateEntry)) {
-			System.out.println("Invalid date. Please enter as follows YYYY\\MM\\DD.");
+			System.out.println("Invalid date. Please enter as follows DD\\MM\\YYYY.");
             return;
 		}
 		
@@ -127,7 +127,7 @@ public class Calendar {
 		String dateEntry = calInput.nextLine().trim();
 		
 		if(!isFormattedDate(dateEntry)) {
-			System.out.println("Invalid date. Please enter as follows YYYY\\MM\\DD.");
+			System.out.println("Invalid date. Please enter as follows DD\\MM\\YYYY.");
             return;
 		}
 		
@@ -176,7 +176,7 @@ public class Calendar {
 		String dateEntry = calInput.nextLine().trim();
 		
 		if(!isFormattedDate(dateEntry)) {
-			System.out.println("Invalid date. Please enter as follows YYYY\\MM\\DD.");
+			System.out.println("Invalid date. Please enter as follows DD\\MM\\YYYY.");
             return;
 		}
 		
