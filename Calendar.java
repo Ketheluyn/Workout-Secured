@@ -108,6 +108,7 @@ public class Calendar {
 		
 			
 		}
+		fitnessCal.put(dateEntry, workouts);
 		
 	}
 	
