@@ -1,5 +1,6 @@
 package com.fitness.tracker;
 
+import java.io.InputStream;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
@@ -16,6 +17,20 @@ public class Calendar {
 		fitnessCal = new HashMap<>();
 		calInput = new Scanner(System.in);
 	}
+	
+	public Calendar(InputStream inputStream) {
+        fitnessCal = new HashMap<>();
+        calInput = new Scanner(inputStream);
+    }
+	
+	public Map<String, Map<String, Integer>> getFitnessCal() {
+	    return fitnessCal;
+	}
+	
+   
+    public void setFitnessCal(Map<String, Map<String, Integer>> fitnessCal) {
+        this.fitnessCal = fitnessCal;
+    }
 	
 	//Loop for allowing calendar input
 	public void userSel() {
@@ -61,13 +76,13 @@ public class Calendar {
 	}
 	
 
-	private void addWorkout() {
+	public void addWorkout() {
 		// add the workout to the calendar
 		System.out.println("Enter date (DD\\MM\\YYYY) for workout: ");
 		String dateEntry = calInput.nextLine().trim();
 		
 		if(!isFormattedDate(dateEntry)) {
-			System.out.println("Invalid date. Please enter as follows DD\\MM\\YYYY.");
+			System.out.println("Invalid date. Please enter as follows YYYY\\MM\\DD.");
             return;
 		}
 		
@@ -106,10 +121,9 @@ public class Calendar {
 				
 			}
 		
-			
 		}
-		fitnessCal.put(dateEntry, workouts);
 		
+		fitnessCal.put(dateEntry, workouts);
 	}
 	
 	private boolean isFormattedDate(String dateEntry) {
@@ -122,7 +136,7 @@ public class Calendar {
         return workoutString.replaceAll("[^\\p{L}\\p{N}\\p{P}\\p{Z}]", "").replaceAll("\\s+", " ").trim();
     }
 
-	private void removeWorkout() {
+	public void removeWorkout() {
 		// remove the workout
 		System.out.println("Enter date (DD\\MM\\YYYY) for workout: ");
 		String dateEntry = calInput.nextLine().trim();
@@ -134,27 +148,29 @@ public class Calendar {
 		
 		Map<String, Integer> workouts = fitnessCal.get(dateEntry);
 		
-		if(workouts == null) {
+		if(workouts == null || workouts.isEmpty()) {
 			System.out.println("No workouts found.");
             return;
 		}
 		
 		System.out.println("Enter workout to remove: ");
-		String workInput = sanitizeWorkOut(calInput.toString().trim()); 
+		String workInput = sanitizeWorkOut(calInput.nextLine().trim()); 
 		
-		if (workouts.containsKey(workInput)) {
-            workouts.remove(workInput);
-            if (workouts.isEmpty()) {
-                fitnessCal.remove(dateEntry);
-            }
-            System.out.println("Workout removed: " + workouts);
-        } else {
-            System.out.println("Workout not found: " + workouts);
+		if (!workouts.containsKey(workInput)) {
+	        System.out.println("Workout not found.");
+	        return;
+	    }
+		
+		workouts.remove(workInput);
+        if (workouts.isEmpty()) {
+            fitnessCal.remove(dateEntry);
         }
+        
+        System.out.println("Workout removed");     
 		
 	}
 	
-	private void viewWorkout() {
+	public void viewWorkout() {
 		// view the workout
 		if(fitnessCal.isEmpty()) {
 			System.out.println("Calendar Is Empty");
@@ -171,7 +187,7 @@ public class Calendar {
 		}
 	}
 	
-	private void editWorkout() {
+	public void editWorkout() {
 		// edit a workout
 		System.out.println("Enter date (DD\\MM\\YYYY) for workout: ");
 		String dateEntry = calInput.nextLine().trim();
@@ -225,6 +241,5 @@ public class Calendar {
 			
 		}
 	}
-
 	
 }
