@@ -1,7 +1,7 @@
 package com.fitness.tracker;
 
 /**
- * @Author Carey Sunderland
+ * {@code @Author} Carey Sunderland
  * The main focus of this class is to interact with the other systems for goals and making sure the user is meeting them.
  * This will be integrated with either the GUI or calendar to give the user notifications on their goals.
  */
@@ -33,8 +33,8 @@ public class Goals {
      * @param userGender Retrieved from the User profile
      * @return The approximate caloric maintenance of the user
      */
-    private double calculateDefaultCalorieMaintenance(int userWeightInPounds, int userHeightInInches,
-                                                      int userAge, String userGender){
+    public double calculateDefaultCalorieMaintenance(int userWeightInPounds, int userHeightInInches,
+                                              int userAge, String userGender){
 
         double userWeightInKGS = (userWeightInPounds / 2.204623);
         double userHeightInCMS = (userHeightInInches * 2.54);
