@@ -1,0 +1,19 @@
+@Test
+public void testAddEvent() {
+    Event event = new Event("Workout", LocalDate.of(2024, 6, 22));
+    boolean result = calendarService.addEvent(event);
+    assertTrue(result);
+}
+
+@Test
+public void testRemoveEvent() {
+    boolean result = calendarService.removeEvent("Workout", LocalDate.of(2024, 6, 22));
+    assertTrue(result);
+}
+
+@Test
+public void testRetrieveEvents() {
+    List<Event> events = calendarService.getEvents(LocalDate.of(2024, 6, 22));
+    assertNotNull(events);
+    assertFalse(events.isEmpty());
+}
