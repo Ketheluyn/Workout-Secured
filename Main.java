@@ -8,9 +8,9 @@ public class Main {
         if (authService.login(user.getUsername(), user.getPassword())) {
             System.out.println("Login successful!");
             //create object instance
-            Calendar proCalendar = new Calendar();
+            CalendarGUI proCalendar = new CalendarGUI();
             
-            proCalendar.userSel();
+            proCalendar.startApp();
 
         } else {
             System.out.println("Login failed!");

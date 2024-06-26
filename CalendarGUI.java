@@ -1,8 +1,6 @@
 package com.fitness.tracker;
 
 import javax.swing.*;
-import javax.swing.event.*;
-import javax.swing.table.*;
 import javax.swing.table.DefaultTableModel; 
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -32,15 +30,7 @@ public class CalendarGUI extends JFrame {
 		saveButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent s) {
-				int weekrow = workoutCalendar.getSelectedRow();
-				
-				//select row
-				if(weekrow != -1) {
-					String workoutData = (String) wTable.getValueAt(weekrow, 1);
-					//TODO: NEED TO ADD DATABASE HERE IF USING
-					saveWorkout(weekrow, workoutData);
-					
-				}
+				saveWorkout();
 				
 			}
 			
@@ -51,35 +41,19 @@ public class CalendarGUI extends JFrame {
 		JButton editButton = new JButton("Edit");
 		editButton.addActionListener(new ActionListener() {
 			@Override
-			public void actionPerformed(ActionEvent s) {
-				int weekrow = workoutCalendar.getSelectedRow();
-				
-				//select row
-				if(weekrow != -1) {
-					String workoutData = (String) wTable.getValueAt(weekrow, 1);
-					//TODO: NEED TO ADD DATABASE HERE IF USING
-					editWorkout(weekrow, workoutData);
+			public void actionPerformed(ActionEvent e) {
+					editWorkout();
 					
 				}
 				
-			}
-			
-		});
+			});
 		
 		//Configure add button
 		JButton addButton = new JButton("Add");
 		addButton.addActionListener(new ActionListener() {
 			@Override
-			public void actionPerformed(ActionEvent s) {
-				int weekrow = workoutCalendar.getSelectedRow();
-				
-				//select row
-				if(weekrow != -1) {
-					String workoutData = (String) wTable.getValueAt(weekrow, 1);
-					//TODO: NEED TO ADD DATABASE HERE IF USING
-					addWorkout(weekrow, workoutData);
-					
-				}
+			public void actionPerformed(ActionEvent a) {
+				addWorkout();
 				
 			}
 			
@@ -90,15 +64,7 @@ public class CalendarGUI extends JFrame {
 		clearButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent s) {
-				int weekrow = workoutCalendar.getSelectedRow();
-				
-				//select row
-				if(weekrow != -1) {
-					String workoutData = (String) wTable.getValueAt(weekrow, 1);
-					//TODO: NEED TO ADD DATABASE HERE IF USING
-					clearWorkout(weekrow, workoutData);
-					
-				}
+				clearWorkout();
 				
 			}
 			
@@ -131,31 +97,65 @@ public class CalendarGUI extends JFrame {
 		
 	}
 
-	public void clearWorkout(int weekrow, String workoutData) {
+	public void clearWorkout() {
 		// TODO Add clearing
+		int weekrow = workoutCalendar.getSelectedRow();
 		
+		//select row
+		if(weekrow != -1) {
+			wTable.setValueAt("", weekrow, 1);
+					
+		}
 	}
 
-	public void addWorkout(int weekrow, String workoutData) {
-		// TODO Set up add workout
+	public void addWorkout() {
+		int weekrow = workoutCalendar.getSelectedRow();
 		
+		//select row
+		if(weekrow != -1) {
+			String workoutData = JOptionPane.showInputDialog(this, "Enter workout " + (weekrow + 1));
+			if(workoutData != null) {
+				wTable.setValueAt(workoutData, weekrow, 1);
+			}
+		}
 	}
 
-	public void editWorkout(int weekrow, String workoutData) {
+	public void editWorkout() {
 		// TODO set up edit workout
+		int weekrow = workoutCalendar.getSelectedRow();
 		
+		if(weekrow != -1) {
+			String savedWorkout = (String) wTable.getValueAt(weekrow, 1);
+			String editMade = JOptionPane.showInputDialog(this, "Edit workout " + (weekrow + 1), savedWorkout);
+			
+			if(editMade != null) {
+				wTable.setValueAt(editMade, weekrow, 1);
+	
+			}
+			
+		}
+				
 	}
 
-	public void saveWorkout(int weekrow, String workoutData) {
-		// TODO set up save method here 
-		wTable.setValueAt(workoutData, weekrow, 1);
+	public void saveWorkout() {
+		StringBuilder toastM = new StringBuilder();
+		
+		for(int i = 0; i < wTable.getRowCount(); i++) {
+			int day = (int) wTable.getValueAt(i,0);
+			String workoutInput = (String) wTable.getValueAt(i,1); 
+			// TODO set up save to database when available
+			toastM.append("Day ").append(day).append(": ").append(workoutInput).append("\n");
+		}
 		//Toast Message to show completion
 		JOptionPane.showMessageDialog(this,
-				"Workout saved for day " + (workoutData + 1) + ":" + workoutData, ". ",
+				toastM.toString(), "Workout Saved",
 				JOptionPane.INFORMATION_MESSAGE);
 	}
 	
-	
+	 // Method to start the application
+    public void startApp() {
+        setVisible(true);
+    }
 	
 	
 }
