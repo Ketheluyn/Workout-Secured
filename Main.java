@@ -1,19 +1,14 @@
 package com.fitness.tracker;
 
-public class Main {
-    public static void main(String[] args) {
-        User user = new User("john_doe", "password123");
-        AuthService authService = new AuthService();
-        
-        if (authService.login(user.getUsername(), user.getPassword())) {
-            System.out.println("Login successful!");
-            //create object instance
-            CalendarGUI proCalendar = new CalendarGUI();
-            
-            proCalendar.startApp();
+import javax.swing.SwingUtilities;
 
-        } else {
-            System.out.println("Login failed!");
-        }
-    }
+public class Main {
+	public static void main(String[] args) {
+		SwingUtilities.invokeLater(() -> {
+			WorkoutLogin loginW = new WorkoutLogin();
+			loginW.setVisible(true);
+		});
+		
+	}
+	
 }

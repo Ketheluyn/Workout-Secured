@@ -6,15 +6,14 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class CalendarGUI extends JFrame {
+public class CalendarGUI extends JPanel {
 
 	private JTable workoutCalendar;
 	private DefaultTableModel wTable;
 	
 	public CalendarGUI() {
-		setTitle("Personal Workout Tracker");
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
+		setLayout(new BorderLayout());		
 		//Initialize workout calendar 
 		wTable = new DefaultTableModel(new Object[]{"Day", "Data"}, 0);
 		
@@ -76,14 +75,8 @@ public class CalendarGUI extends JFrame {
 		buttonPanel.add(clearButton);
 		buttonPanel.add(saveButton);
 		
-		getContentPane().setLayout(new BorderLayout());
-		getContentPane().add(scrollPane, BorderLayout.CENTER);
-		getContentPane().add(buttonPanel, BorderLayout.SOUTH);
-		
-		pack();
-		
-		setLocationRelativeTo(null);
-		
+		add(scrollPane, BorderLayout.CENTER);
+        add(buttonPanel, BorderLayout.SOUTH);
 		
 	}
 	
