@@ -47,6 +47,11 @@ public class User {
         return (double) weight / (heightInInches * heightInInches);
     }
 
+    public static boolean getUsernameDuplicates(){
+        //Find if there is any usernames with that created.
+        return true;
+    }
+
     public String getUsername() {
         return username;
     }
@@ -54,7 +59,6 @@ public class User {
     public String getPassword() {
         return password;
     }
-
 
     public void setUsername(String username) {
         this.username = username;

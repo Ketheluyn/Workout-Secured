@@ -1,9 +1,12 @@
 package com.fitness.tracker.GUI;
 
+import com.fitness.tracker.Functions.User;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Arrays;
 
 public class RegisterGUI extends JFrame {
 
@@ -116,12 +119,42 @@ public class RegisterGUI extends JFrame {
         registerButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
+                createUserProfile();
             }
         });
 
         pack();
     }
 
+    private void createUserProfile(){
+        if(!User.getUsernameDuplicates()){
+            JOptionPane.showMessageDialog(this, "User with username already created, " +
+                    "try a different username or login.");
+        }
 
+        User newRegisteredUser;
+
+        String stringPasswordField = Arrays.toString(passwordField.getPassword());
+        try {
+            int intUserAgeField = Integer.parseInt(userAgeField.getText());
+            int intHeightInInchesField = Integer.parseInt(heightInInchesField.getText());
+            int intWeightField = Integer.parseInt(weightField.getText());
+
+            newRegisteredUser = new User(usernameField.getText(), stringPasswordField, intUserAgeField,
+                    intHeightInInchesField, intWeightField, genderField.getText());
+
+            JOptionPane.showConfirmDialog(this, "You successfully created your account " +
+                    newRegisteredUser.getUsername() + ", please login now.");
+
+            dispose();
+            SwingUtilities.invokeLater(()-> {
+              MainApplicationWindow main = new MainApplicationWindow();
+              main.setVisible(true);
+            });
+
+        } catch (NumberFormatException e){
+            JOptionPane.showMessageDialog(this, "There was an error creating your profile. Please" +
+                    "check your fields");
+        }
+    }
 }
