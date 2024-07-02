@@ -1,0 +1,6 @@
+@Test
+public void testGenerateFeedback() {
+    Feedback feedback = feedbackService.generateFeedback("user1", LocalDate.of(2024, 6, 22));
+    assertNotNull(feedback);
+    assertTrue(feedback.getMessage().contains("Good job"));
+}
