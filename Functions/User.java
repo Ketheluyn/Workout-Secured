@@ -1,7 +1,7 @@
-package com.fitness.tracker;
+package com.fitness.tracker.Functions;
 
 /**
- * This class is to hold the data for the user to be reutilized throughout the program without having to make changes.
+ * This class is to hold the data for the user to be utilized throughout the program without having to make changes.
  *
  */
 public class User {

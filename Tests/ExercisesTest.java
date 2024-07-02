@@ -1,6 +1,6 @@
-package com.fitness.tracker;
+package com.fitness.tracker.Tests;
 
-import org.junit.Before;
+import com.fitness.tracker.Functions.Exercises;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

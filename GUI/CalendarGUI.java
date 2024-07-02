@@ -1,4 +1,4 @@
-package com.fitness.tracker;
+package com.fitness.tracker.GUI;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel; 

@@ -1,4 +1,6 @@
-package com.fitness.tracker;
+package com.fitness.tracker.GUI;
+
+import com.fitness.tracker.Functions.AuthService;
 
 import javax.swing.*;
 import java.awt.*;

@@ -1,8 +1,10 @@
-package com.fitness.tracker;
+package com.fitness.tracker.Tests;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
+import com.fitness.tracker.Functions.Goals;
+import com.fitness.tracker.Functions.User;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 

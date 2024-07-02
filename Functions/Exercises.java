@@ -1,4 +1,4 @@
-package com.fitness.tracker;
+package com.fitness.tracker.Functions;
 
 import java.time.LocalDateTime;
 

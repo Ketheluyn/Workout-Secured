@@ -1,7 +1,9 @@
-package com.fitness.tracker;
+package com.fitness.tracker.Tests;
 
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.assertFalse;
+
+import com.fitness.tracker.Functions.AuthService;
 import org.junit.Test;
 
 public class AuthServiceTest {

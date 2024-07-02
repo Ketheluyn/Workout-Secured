@@ -1,4 +1,4 @@
-package com.fitness.tracker;
+package com.fitness.tracker.Functions;
 
 /**
  * AuthService provides basic authentication functionalities.
