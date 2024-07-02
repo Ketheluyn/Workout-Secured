@@ -37,6 +37,16 @@ public class WorkoutLogin extends JFrame {
                 sendLogin();
             }
         });
+
+		JButton registerButton = new JButton("Register");
+		add(registerButton);
+
+		registerButton.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				new RegisterGUI();
+			}
+		});
 		
 		
 	}
