@@ -44,7 +44,8 @@ public class WorkoutLogin extends JFrame {
 		registerButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				new RegisterGUI();
+				RegisterGUI registerGUI = new RegisterGUI();
+				registerGUI.setVisible(true);
 			}
 		});
 		

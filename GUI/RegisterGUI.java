@@ -127,34 +127,36 @@ public class RegisterGUI extends JFrame {
     }
 
     private void createUserProfile(){
-        if(!User.getUsernameDuplicates()){
+
+        String usernameEntered = usernameField.getText();
+
+        if(User.isUsernameDuplicate(usernameEntered)){
             JOptionPane.showMessageDialog(this, "User with username already created, " +
-                    "try a different username or login.");
+                    "try a different username or login.", "Username taken", JOptionPane.ERROR_MESSAGE);
+            return;
         }
 
         User newRegisteredUser;
 
-        String stringPasswordField = Arrays.toString(passwordField.getPassword());
+        String stringPasswordField = new String(passwordField.getPassword());
         try {
             int intUserAgeField = Integer.parseInt(userAgeField.getText());
             int intHeightInInchesField = Integer.parseInt(heightInInchesField.getText());
             int intWeightField = Integer.parseInt(weightField.getText());
 
-            newRegisteredUser = new User(usernameField.getText(), stringPasswordField, intUserAgeField,
+            newRegisteredUser = new User(usernameEntered, stringPasswordField, intUserAgeField,
                     intHeightInInchesField, intWeightField, genderField.getText());
 
-            JOptionPane.showConfirmDialog(this, "You successfully created your account " +
+            JOptionPane.showMessageDialog(this, "You successfully created your account " +
                     newRegisteredUser.getUsername() + ", please login now.");
 
             dispose();
-            SwingUtilities.invokeLater(()-> {
-              MainApplicationWindow main = new MainApplicationWindow();
-              main.setVisible(true);
-            });
+
+            User.writeUserToFile(newRegisteredUser);
 
         } catch (NumberFormatException e){
             JOptionPane.showMessageDialog(this, "There was an error creating your profile. Please" +
-                    "check your fields");
+                    "check your fields", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
 }

@@ -1,5 +1,9 @@
 package com.fitness.tracker.Functions;
 
+import java.io.*;
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * This class is to hold the data for the user to be utilized throughout the program without having to make changes.
  *
@@ -47,9 +51,39 @@ public class User {
         return (double) weight / (heightInInches * heightInInches);
     }
 
-    public static boolean getUsernameDuplicates(){
-        //Find if there is any usernames with that created.
-        return true;
+    public static void writeUserToFile(User user) {
+        File file = new File("users.txt");
+        try {
+            if (!file.exists()) {
+                file.createNewFile();
+            }
+            try (BufferedWriter writer = new BufferedWriter(new FileWriter(file, true))) {
+                writer.write(user.getUsername() + " " +
+                        user.getPassword() + " " +
+                        user.getUserAge() + " " +
+                        user.getHeightInInches() + " " +
+                        user.getWeight() + " " +
+                        user.getGender());
+                writer.newLine();
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static boolean isUsernameDuplicate(String username) {
+        try (BufferedReader reader = new BufferedReader(new FileReader("users.txt"))) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                String[] parts = line.split(" ");
+                if (parts.length > 0 && parts[0].equals(username)) {
+                    return true;
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return false;
     }
 
     public String getUsername() {
