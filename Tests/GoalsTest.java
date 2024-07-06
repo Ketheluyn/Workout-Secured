@@ -15,7 +15,7 @@ class GoalsTest {
 
     @BeforeEach
     void setUp() {
-        user = new User("john_doe", "password123");
+        user = new User("john_doe");
         user.setWeight(180); // in pounds
         user.setHeightInInches(70); // in inches
         user.setUserAge(30); // in years
@@ -31,7 +31,7 @@ class GoalsTest {
 
     @Test
     void testSetAndGetUser() {
-        User newUser = new User("jane_doe", "password456");
+        User newUser = new User("jane_doe");
         goals.setUser(newUser);
         assertEquals(newUser, goals.getUser());
     }

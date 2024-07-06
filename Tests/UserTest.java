@@ -13,7 +13,7 @@ class UserTest {
 
     @BeforeEach
     void setUp() {
-        user = new User("john_doe", "password123");
+        user = new User("john_doe");
         user.setUserAge(30);
         user.setHeightInInches(70);
         user.setWeight(180);
@@ -28,7 +28,7 @@ class UserTest {
 
     @Test
     void setupUserprofile() {
-        User newUser = new User("jane_doe", "password456");
+        User newUser = new User("jane_doe");
         assertNotNull(newUser);
         assertEquals("jane_doe", newUser.getUsername());
         assertEquals("password456", newUser.getPassword());

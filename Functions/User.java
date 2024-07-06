@@ -1,8 +1,6 @@
 package com.fitness.tracker.Functions;
 
 import java.io.*;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * This class is to hold the data for the user to be utilized throughout the program without having to make changes.
@@ -17,28 +15,16 @@ public class User {
     private String gender;
     private double userBMI;
 
-    public User (String username, String password){
+    public User (String username){
         this.username = username;
-        this.password = password;
+
+        existingUserProfile(username);
     }
 
     public User (String username, String password, int userAge, int heightInInches,
                 int weight, String gender) {
         this.username = username;
         this.password = password;
-        this.userAge = userAge;
-        this.heightInInches = heightInInches;
-        this.weight = weight;
-        this.gender = gender;
-
-        this.userBMI = calculateBMI(this.heightInInches, this.weight);
-    }
-
-    /**
-     * This method is used in the case the user does not enter all their information in a complete setup and
-     * creates just a basic account with a username and password.
-     */
-    public void setupUserprofile(int userAge, int heightInInches, int weight, String gender){
         this.userAge = userAge;
         this.heightInInches = heightInInches;
         this.weight = weight;
@@ -84,6 +70,26 @@ public class User {
             e.printStackTrace();
         }
         return false;
+    }
+
+    private void existingUserProfile(String username) {
+        try (BufferedReader reader = new BufferedReader(new FileReader("users.txt"))) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                String[] parts = line.split(" ");
+                if (parts.length == 6 && parts[0].equals(username)) {
+                    this.password = parts[1];
+                    this.userAge = Integer.parseInt(parts[2]);
+                    this.heightInInches = Integer.parseInt(parts[3]);
+                    this.weight = Integer.parseInt(parts[4]);
+                    this.gender = parts[5];
+                    this.userBMI = calculateBMI(this.heightInInches, this.weight);
+                    break;
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public String getUsername() {

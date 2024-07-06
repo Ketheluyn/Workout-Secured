@@ -1,5 +1,7 @@
 package com.fitness.tracker.GUI;
 
+import com.fitness.tracker.Functions.AuthService;
+
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel; 
 import java.awt.*;
@@ -68,12 +70,22 @@ public class CalendarGUI extends JPanel {
 			}
 			
 		});
+
+		JButton userInfoButton = new JButton("User Info");
+		userInfoButton.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				UserInfoGUI userInfoGUI = new UserInfoGUI(AuthService.getCurrentUser());
+				userInfoGUI.setVisible(true);
+			}
+		});
 		
 		JPanel buttonPanel = new JPanel();
 		buttonPanel.add(addButton);
 		buttonPanel.add(editButton);
 		buttonPanel.add(clearButton);
 		buttonPanel.add(saveButton);
+		buttonPanel.add(userInfoButton);
 		
 		add(scrollPane, BorderLayout.CENTER);
         add(buttonPanel, BorderLayout.SOUTH);

@@ -15,12 +15,15 @@ public class AuthService {
      * @param password The password of the user.
      * @return True if the login is successful, otherwise false.
      */
+    private static User user;
+
     public static boolean login(String username, String password) {
         try (BufferedReader reader = new BufferedReader(new FileReader("users.txt"))) {
             String line;
             while ((line = reader.readLine()) != null) {
                 String[] parts = line.split(" ");
                 if (parts.length > 1 && parts[0].equals(username) && parts[1].equals(password)) {
+                    user = new User(username);
                     return true;
                 }
             }
@@ -30,5 +33,7 @@ public class AuthService {
         return false;
     }
 
-
+    public static User getCurrentUser(){
+        return user;
+    }
 }

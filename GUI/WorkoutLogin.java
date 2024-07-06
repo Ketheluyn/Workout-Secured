@@ -11,7 +11,6 @@ public class WorkoutLogin extends JFrame {
 	private JTextField userNaF;
 	private JPasswordField passWoF;
 	
-	
 	public WorkoutLogin() {
 		//setting up window
 		setTitle("User Login");
