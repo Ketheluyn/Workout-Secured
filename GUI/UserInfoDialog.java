@@ -5,7 +5,7 @@ import com.fitness.tracker.Functions.User;
 import javax.swing.*;
 import java.awt.*;
 
-public class UserInfoGUI extends JFrame {
+public class UserInfoDialog extends JDialog {
 
     private User user;
     private JTextField usernameField;
@@ -14,14 +14,12 @@ public class UserInfoGUI extends JFrame {
     private JTextField weightField;
     private JTextField genderField;
 
-    public UserInfoGUI(User userEntered){
+    public UserInfoDialog(JPanel owner, User user) {
+        super();
+        this.user = user;
 
-        this.user = userEntered;
-
-        setTitle("User Information");
         setSize(800, 600);
-        setLocationRelativeTo(null);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setLocationRelativeTo(owner);
         setLayout(new GridBagLayout());
         GridBagConstraints gbc = new GridBagConstraints();
 
@@ -107,13 +105,12 @@ public class UserInfoGUI extends JFrame {
         gbc.fill = GridBagConstraints.NONE;
         JButton backButton = new JButton("Back");
         backButton.setFont(new Font("Arial", Font.BOLD, 18));
-        backButton.setPreferredSize(new Dimension( 200, 40));
+        backButton.setPreferredSize(new Dimension(200, 40));
         add(backButton, gbc);
 
-        backButton.addActionListener(e -> dispose());
+        backButton.addActionListener(e ->
+                dispose());
+
         pack();
-
     }
-
 }
-

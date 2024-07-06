@@ -1,6 +1,7 @@
 package com.fitness.tracker.GUI;
 
 import com.fitness.tracker.Functions.AuthService;
+import com.fitness.tracker.Functions.User;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel; 
@@ -75,8 +76,14 @@ public class CalendarGUI extends JPanel {
 		userInfoButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				UserInfoGUI userInfoGUI = new UserInfoGUI(AuthService.getCurrentUser());
-				userInfoGUI.setVisible(true);
+				User currentUser = AuthService.getCurrentUser();
+				if (currentUser != null) {
+					UserInfoDialog userInfoDialog = new UserInfoDialog(CalendarGUI.this, currentUser);
+					userInfoDialog.setVisible(true);
+					userInfoDialog.setAutoRequestFocus(true);
+				} else {
+					JOptionPane.showMessageDialog(null, "No user logged in.", "Error", JOptionPane.ERROR_MESSAGE);
+				}
 			}
 		});
 		
