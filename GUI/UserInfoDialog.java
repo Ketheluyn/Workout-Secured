@@ -13,6 +13,7 @@ public class UserInfoDialog extends JDialog {
     private JTextField heightInInchesField;
     private JTextField weightField;
     private JTextField genderField;
+    private JTextField userBMIField;
 
     public UserInfoDialog(JPanel owner, User user) {
         super();
@@ -101,6 +102,18 @@ public class UserInfoDialog extends JDialog {
 
         gbc.gridx = 0;
         gbc.gridy = 6;
+        JLabel userBMILabel = new JLabel("UserBMI:");
+        userBMILabel.setFont(labelFont);
+        add(userBMILabel, gbc);
+        gbc.gridx = 1;
+        userBMIField = new JTextField(String.valueOf(user.getUserBMI()));
+        userBMIField.setPreferredSize(fieldSize);
+        userBMIField.setFont(fieldFont);
+        userBMIField.setEditable(false);
+        add(userBMIField, gbc);
+
+        gbc.gridx = 0;
+        gbc.gridy = 7;
         gbc.gridwidth = 2;
         gbc.fill = GridBagConstraints.NONE;
         JButton backButton = new JButton("Back");
@@ -108,8 +121,7 @@ public class UserInfoDialog extends JDialog {
         backButton.setPreferredSize(new Dimension(200, 40));
         add(backButton, gbc);
 
-        backButton.addActionListener(e ->
-                dispose());
+        backButton.addActionListener(e -> dispose());
 
         pack();
     }
