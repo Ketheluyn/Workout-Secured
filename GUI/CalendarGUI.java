@@ -13,6 +13,7 @@ public class CalendarGUI extends JPanel {
 
 	private JTable workoutCalendar;
 	private DefaultTableModel wTable;
+	private final User currentUser = AuthService.getCurrentUser();
 	
 	public CalendarGUI() {
 		
@@ -76,7 +77,6 @@ public class CalendarGUI extends JPanel {
 		userInfoButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				User currentUser = AuthService.getCurrentUser();
 				if (currentUser != null) {
 					UserInfoDialog userInfoDialog = new UserInfoDialog(CalendarGUI.this, currentUser);
 					userInfoDialog.setVisible(true);
@@ -86,6 +86,15 @@ public class CalendarGUI extends JPanel {
 				}
 			}
 		});
+
+		JButton goalsGUIButton = new JButton("Goals");
+		goalsGUIButton.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				GoalsGUI goalsGUI = new GoalsGUI(currentUser);
+				goalsGUI.setVisible(true);
+			}
+		});
 		
 		JPanel buttonPanel = new JPanel();
 		buttonPanel.add(addButton);
@@ -93,6 +102,7 @@ public class CalendarGUI extends JPanel {
 		buttonPanel.add(clearButton);
 		buttonPanel.add(saveButton);
 		buttonPanel.add(userInfoButton);
+		buttonPanel.add(goalsGUIButton);
 		
 		add(scrollPane, BorderLayout.CENTER);
         add(buttonPanel, BorderLayout.SOUTH);

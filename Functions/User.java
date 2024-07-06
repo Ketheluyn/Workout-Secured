@@ -1,12 +1,14 @@
 package com.fitness.tracker.Functions;
 
 import java.io.*;
+import java.util.Properties;
 
 /**
  * This class is to hold the data for the user to be utilized throughout the program without having to make changes.
  *
  */
 public class User {
+
     private String username;
     private String password;
     private int userAge;
@@ -14,6 +16,7 @@ public class User {
     private int weight;
     private String gender;
     private double userBMI;
+    private Goals goalsPlan;
 
     public User (String username){
         this.username = username;
@@ -87,9 +90,14 @@ public class User {
                     break;
                 }
             }
+
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    private void addGoalsToPlan(){
+
     }
 
     public String getUsername() {
@@ -146,5 +154,13 @@ public class User {
 
     public void setUserBMI(double userBMI) {
         this.userBMI = userBMI;
+    }
+
+    public Goals getGoalsPlan() {
+        return goalsPlan;
+    }
+
+    public void setGoalsPlan(Goals goalsPlane) {
+        this.goalsPlan = goalsPlane;
     }
 }
