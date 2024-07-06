@@ -1,2 +1,6 @@
 john john 1 2 3 male
+<<<<<<< Updated upstream
 useruse passypass 21 65 300 male
+=======
+testuser2 testtest 25 76 200 Male
+>>>>>>> Stashed changes
