@@ -10,24 +10,22 @@ import java.util.Properties;
 
 public class GoalsGUI extends JFrame {
 
-    private User user;
-    private Goals goals;
-    private String username;
-    private JTextField usernameField;
-    private JTextField calorieField;
-    private JTextField proteinField;
-    private JTextField carbohydrateField;
-    private JTextField fatsField;
-    private JTextField sugarField;
-    private JTextField caffeineField;
-    private JTextField defaultCalorieMaintenanceField;
+    private final String username;
+    private final JTextField usernameField;
+    private final JTextField calorieField;
+    private final JTextField proteinField;
+    private final JTextField carbohydrateField;
+    private final JTextField fatsField;
+    private final JTextField sugarField;
+    private final JTextField caffeineField;
+    private final JTextField defaultCalorieMaintenanceField;
     private boolean isEditable = false;
 
     public GoalsGUI(User user) {
 
-        this.user = user;
-        this.goals = new Goals(user);
+        Goals goals = new Goals(user);
         this.username = user.getUsername();
+        String caloricMaintenanceStringFormatted = String.format("%.2f", goals.getDefaultCalorieMaintenance());
 
         setTitle("Set Goals");
         setSize(800, 600);
@@ -142,7 +140,7 @@ public class GoalsGUI extends JFrame {
         defaultCalorieMaintenanceLabel.setFont(labelFont);
         add(defaultCalorieMaintenanceLabel, gbc);
         gbc.gridx = 1;
-        defaultCalorieMaintenanceField = new JTextField(String.valueOf(goals.getDefaultCalorieMaintenance()));
+        defaultCalorieMaintenanceField = new JTextField(caloricMaintenanceStringFormatted);
         defaultCalorieMaintenanceField.setPreferredSize(fieldSize);
         defaultCalorieMaintenanceField.setFont(fieldFont);
         defaultCalorieMaintenanceField.setEditable(false);
