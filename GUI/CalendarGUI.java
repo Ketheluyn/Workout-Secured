@@ -17,13 +17,13 @@ public class CalendarGUI extends JPanel {
 
 	private JTable workoutCalendar;
 	private DefaultTableModel wTable;
-<<<<<<< Updated upstream
+
 	private final User currentUser = AuthService.getCurrentUser();
-=======
+
 	private JComboBox<String> monthWorkoutBox;
 	private final String[] months = {"January", "February", "March", "April", "May", "June",
 			"July", "August", "September", "October", "November", "December"};
->>>>>>> Stashed changes
+
 	
 	public CalendarGUI() {
 		
@@ -134,14 +134,14 @@ public class CalendarGUI extends JPanel {
 		buttonPanel.add(editButton);
 		buttonPanel.add(clearButton);
 		buttonPanel.add(saveButton);
-<<<<<<< Updated upstream
+
 		buttonPanel.add(userInfoButton);
 		buttonPanel.add(goalsGUIButton);
 		
-=======
+
 
 		add(monthWorkoutBox, BorderLayout.NORTH);
->>>>>>> Stashed changes
+
 		add(scrollPane, BorderLayout.CENTER);
         add(buttonPanel, BorderLayout.SOUTH);
 
