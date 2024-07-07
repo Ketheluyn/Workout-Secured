@@ -162,19 +162,14 @@ public class CalendarGUI extends JPanel {
 
 	private void updateTableMonth(int month) {
 		int daysInMonth = getDaysInMonth(month);
-		int currentRowCount = wTable.getRowCount();
-		int requiredRowCount = Math.max(currentRowCount, daysInMonth);
 
 		// Update existing rows or add new rows as needed
-		for (int i = 0; i < requiredRowCount; i++) {
-			if (i < currentRowCount) {
-				// Update existing row if within current row count
-				wTable.setValueAt(i + 1, i, 0);
+		DefaultTableModel model = (DefaultTableModel) workoutCalendar.getModel();
 
-			} else {
-				// Add new row if required row count exceeds current row count
-				wTable.addRow(new Object[]{i + 1, ""});
-			}
+		model.setRowCount(daysInMonth);
+
+		for (int i = 0; i < daysInMonth; i++) {
+			model.setValueAt(i + 1, i, 0); // Day number
 		}
 
 	}
