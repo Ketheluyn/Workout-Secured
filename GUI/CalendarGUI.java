@@ -10,7 +10,7 @@ import javax.swing.table.TableColumn;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.File;
+import java.io.*;
 import java.util.Calendar;
 
 public class CalendarGUI extends JPanel {
@@ -31,6 +31,7 @@ public class CalendarGUI extends JPanel {
 
 		//Initialize combobox
 		monthWorkoutBox = new JComboBox<>(months);
+
 		monthWorkoutBox.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -66,12 +67,21 @@ public class CalendarGUI extends JPanel {
 		saveButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent s) {
-				saveWorkout();
+				saveWorkout(currentUser.getUsername());
 				
 			}
 			
 		});
-		
+
+		//Configure save button
+		JButton loadButton = new JButton("Load");
+		loadButton.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent s) {
+				loadWorkout(currentUser.getUsername());
+			}
+
+		});
 		
 		//Configure edit button
 		JButton editButton = new JButton("Edit");
@@ -133,6 +143,7 @@ public class CalendarGUI extends JPanel {
 		buttonPanel.add(addButton);
 		buttonPanel.add(editButton);
 		buttonPanel.add(clearButton);
+		buttonPanel.add(loadButton);
 		buttonPanel.add(saveButton);
 
 		buttonPanel.add(userInfoButton);
@@ -150,11 +161,20 @@ public class CalendarGUI extends JPanel {
 	}
 
 	private void updateTableMonth(int month) {
-		wTable.setRowCount(0);
 		int daysInMonth = getDaysInMonth(month);
+		int currentRowCount = wTable.getRowCount();
+		int requiredRowCount = Math.max(currentRowCount, daysInMonth);
 
-		for(int i = 1; i <= getDaysInMonth(month); i++) {
-			wTable.addRow(new Object[]{i, ""});
+		// Update existing rows or add new rows as needed
+		for (int i = 0; i < requiredRowCount; i++) {
+			if (i < currentRowCount) {
+				// Update existing row if within current row count
+				wTable.setValueAt(i + 1, i, 0);
+
+			} else {
+				// Add new row if required row count exceeds current row count
+				wTable.addRow(new Object[]{i + 1, ""});
+			}
 		}
 
 	}
@@ -187,6 +207,58 @@ public class CalendarGUI extends JPanel {
 		}
 	}
 
+	public void loadWorkout(String userName) {
+		String selectMonth = (String) JOptionPane.showInputDialog(this, "Select Month to Load: ",
+				"Load Workout", JOptionPane.QUESTION_MESSAGE, null, months, months[0]);
+
+		if(selectMonth == null) {
+			return;
+		}
+
+		File inputWorkout = new File("user_workoutdata", "workout_data_" + userName + "_month_" +
+				selectMonth + ".csv");
+
+		if (!inputWorkout.exists()) {
+			JOptionPane.showMessageDialog(this, "No data found for " + selectMonth, "Load Error",
+					JOptionPane.ERROR_MESSAGE);
+		}
+
+		try(BufferedReader reader = new BufferedReader(new FileReader(inputWorkout))) {
+			DefaultTableModel model = (DefaultTableModel) workoutCalendar.getModel();
+			model.setRowCount(0);
+
+			String line;
+			while((line = reader.readLine()) != null) {
+				String[] parts = line.split(",", -1);
+				if (parts.length == 3) {
+					int day = Integer.parseInt(parts[1].trim());
+					String workoutInput = parts[2].trim();
+
+					wTable.addRow(new Object[]{day, workoutInput});
+
+
+					System.out.println("Line: " + day + " printed");
+				}
+			}
+
+			model.fireTableDataChanged();
+			monthWorkoutBox.setSelectedItem(selectMonth);
+
+			JOptionPane.showMessageDialog(this, "Workout data loaded for " + selectMonth,
+					"Workout Loaded", JOptionPane.INFORMATION_MESSAGE);
+
+		} catch (IOException e) {
+			JOptionPane.showMessageDialog(this, "Workout data failed to load" +
+					e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+
+		} catch (NumberFormatException e) {
+			JOptionPane.showMessageDialog(this, "Error parsing workout data: " + e.getMessage(), "Error",
+					JOptionPane.ERROR_MESSAGE);
+		}
+
+
+	}
+
 	public void addWorkout() {
 		int weekrow = workoutCalendar.getSelectedRow();
 		
@@ -216,19 +288,41 @@ public class CalendarGUI extends JPanel {
 				
 	}
 
-	public void saveWorkout() {
-		StringBuilder toastM = new StringBuilder();
-		
-		for(int i = 0; i < wTable.getRowCount(); i++) {
-			int day = (int) wTable.getValueAt(i,0);
-			String workoutInput = (String) wTable.getValueAt(i,1); 
-			// TODO set up save to database when available
-			toastM.append("Day ").append(day).append(": ").append(workoutInput).append("\n");
+	public void saveWorkout(String userName) {
+		int selectedMonth = monthWorkoutBox.getSelectedIndex();
+		String selectedMonthName = months[selectedMonth];
+
+		File userSave = new File("user_workoutdata");
+		if(!userSave.exists()) {
+			userSave.mkdirs();
+
 		}
-		//Toast Message to show completion
-		JOptionPane.showMessageDialog(this,
-				toastM.toString(), "Workout Saved",
-				JOptionPane.INFORMATION_MESSAGE);
+
+		//set file name based on user and month
+		File outputWorkouts = new File(userSave, "workout_data_" + userName + "_month_" +
+				selectedMonthName + ".csv");
+
+
+		//Write to file
+		try(BufferedWriter writer = new BufferedWriter(new FileWriter(outputWorkouts))) {
+			for(int i = 0; i < wTable.getRowCount(); i++) {
+				int day = (int) wTable.getValueAt(i, 0);
+				String workoutInput = (String) wTable.getValueAt(i, 1);
+
+				writer.write(selectedMonthName + "," + day + "," + workoutInput);
+				writer.newLine();
+
+			}
+			JOptionPane.showMessageDialog(this, "Workout data saved to: " + outputWorkouts.getAbsolutePath(),
+					"Workout Saved", JOptionPane.INFORMATION_MESSAGE);
+
+		} catch(IOException e) {
+			JOptionPane.showMessageDialog(this, "Error saving data: " + e.getMessage(),
+					"Error", JOptionPane.ERROR_MESSAGE);
+
+		}
+
+
 	}
 	
 	 // Method to start the application
