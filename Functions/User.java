@@ -37,7 +37,7 @@ public class User {
     }
 
     private double calculateBMI(int heightInInches, int weight){
-        return (double) weight / (heightInInches * heightInInches);
+        return (double) weight * 703 / (heightInInches * heightInInches);
     }
 
     public static void writeUserToFile(User user) {

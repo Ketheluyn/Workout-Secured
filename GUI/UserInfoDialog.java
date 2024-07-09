@@ -106,7 +106,8 @@ public class UserInfoDialog extends JDialog {
         userBMILabel.setFont(labelFont);
         add(userBMILabel, gbc);
         gbc.gridx = 1;
-        userBMIField = new JTextField(String.valueOf(user.getUserBMI()));
+        String userBMIStringFormatted = String.format("%.2f", user.getUserBMI());
+        userBMIField = new JTextField(userBMIStringFormatted);
         userBMIField.setPreferredSize(fieldSize);
         userBMIField.setFont(fieldFont);
         userBMIField.setEditable(false);
